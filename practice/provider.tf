@@ -1,6 +1,6 @@
 provider "aws" {
-  aws_access_id = 
-  aws_access_key = 
+  access_key = var.aws_access_key
+  secret_key = var.aws.secret_key
 }
 provider "azure"{
 
