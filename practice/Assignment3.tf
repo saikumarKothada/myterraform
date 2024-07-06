@@ -19,7 +19,7 @@ variable "access" {
 }
 
 # Create EC2 instances
-resource "aws_instance" "hello_ohio" {
+resource "aws_instance" "ohio_instance" {
   provider = aws.ohio
   ami      = "ami-08be1e3e6c338b037" # ohio AMI ID ID
   instance_type = "t2.micro"
@@ -29,7 +29,7 @@ resource "aws_instance" "hello_ohio" {
   }
 }
 
-resource "aws_instance" "hello_virginia" {
+resource "aws_instance" "N_verginia_instance" {
   ami      = "ami-06c68f701d8090592" # N.Virginia AMI ID
   instance_type = "t2.micro"
   tags = {
