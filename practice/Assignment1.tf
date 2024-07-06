@@ -13,7 +13,7 @@ provider "aws" {
 resource "aws_instance" "my_instance" {
   ami           = "ami-0862be96e41dcbf74" 
   instance_type = "t2.micro" 
-#  subnet_id     = aws_default_subnet.default.id
+  subnet_id     = aws_default_subnet.default.id
 
   tags = {
     user = "terraformUser"
@@ -21,6 +21,6 @@ resource "aws_instance" "my_instance" {
   }
 }
 
-/* resource "aws_default_subnet" "default" {
+resource "aws_default_subnet" "default" {
   availability_zone = "us-east-2a" 
-} */
+}
