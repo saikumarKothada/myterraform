@@ -27,7 +27,7 @@ resource "aws_default_subnet" "default" {
 
 resource "aws_eip" "my_eip" {
   instance = aws_instance.my_instance.id
-  vpc      = true
+  domain   = vpc
 
   tags = {
     Name = "MyEIP"
