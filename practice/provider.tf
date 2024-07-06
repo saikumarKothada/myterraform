@@ -1,7 +1,11 @@
-provider "aws" {
-  access_key = var.aws_access_key
-  secret_key = var.aws.secret_key
+variable "secret"{
+  type = string
 }
-provider "azure"{
-
+variable "access" {
+ type = string
+}
+provider "aws" {
+  access_key = var.access
+  secret_key = var.secret
+  region = "us-east-1"
 }
