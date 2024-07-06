@@ -24,3 +24,13 @@ resource "aws_instance" "my_instance" {
 resource "aws_default_subnet" "default" {
   availability_zone = "us-east-2a" 
 }
+
+resource "aws_eip" "my_eip" {
+  instance = aws_instance.my_instance.id
+  vpc      = true
+
+  tags = {
+    Name = "MyEIP"
+    user = "terraformUser"
+  }
+}
