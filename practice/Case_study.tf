@@ -90,6 +90,13 @@ resource "aws_security_group" "websg" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]  # Allow traffic from all sources
   }
+  # Egress rule allowing all outbound traffic
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"  # All protocols
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
 
 # creates a network interface and attach to public ec2 instance
@@ -118,7 +125,7 @@ resource "aws_instance" "public_instance" {
 EOF
 
   tags = {
-    Name = "subnet1-ec2-instance"
+    Name = "public_instance"
   }
 }
 
@@ -136,6 +143,6 @@ resource "aws_instance" "private_instance" {
   EOF
 
   tags = {
-    Name = "subnet2-ec2-instance"
+    Name = "private_instance"
   }
 }
