@@ -89,21 +89,25 @@ resource "aws_security_group" "websg" {
     to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]  # Allow traffic from all sources
+    tags = {
+        user = "terraform user"
+    }
   }
 }
 
+# creates a network interface and attach to public ec2 instance
 resource "aws_network_interface" "my_eni" {
   subnet_id       = aws_subnet.subnet1.id
   security_groups = [aws_security_group.websg.id]
 
   attachment {
-    instance     = aws_instance.subnet1_ec2_instance.id
+    instance     = aws_instance.public_instance.id
     device_index = 1
   }
 }
 
 # Create an EC2 instance in public subnet 
-resource "aws_instance" "subnet1_ec2_instance" {
+resource "aws_instance" "public_instance" {
   ami           = "ami-04a81a99f5ec58529" # ubuntu AMI in N.verginia
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.subnet1.id
@@ -122,7 +126,7 @@ EOF
 }
 
 # Create an EC2 instance in private subnet 
-resource "aws_instance" "subnet2_ec2_instance" {
+resource "aws_instance" "private_instance" {
   ami           = "ami-04a81a99f5ec58529" # ubuntu AMI in N.verginia
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.subnet2.id
