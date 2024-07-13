@@ -1,0 +1,30 @@
+# main.tf
+
+# Create an RSA key pair
+resource "tls_private_key" "my_key_pair" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+# Create an AWS key pair using the public key from the RSA key pair
+resource "aws_key_pair" "my_key_pair" {
+  key_name   = "my-key-pair"  # Replace with your desired key pair name
+  public_key = tls_private_key.my_key_pair.public_key_openssh
+}
+
+# Create an EC2 instance and associate the key pair
+resource "aws_instance" "my_instance" {
+  ami           = "ami-0c55b159cbfafe1f0"  # Specify the AMI ID
+  instance_type = "t2.micro"
+  key_name      = aws_key_pair.my_key_pair.key_name
+
+  tags = {
+    Name = "MyInstance"
+  }
+}
+
+# Output the private key in PEM format
+resource "local_file" "private_key_file" {
+  filename = "my-key-pair.pem"  # Specify the desired filename
+  content  = tls_private_key.my_key_pair.private_key_pem
+}
