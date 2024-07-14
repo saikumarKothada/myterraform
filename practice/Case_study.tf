@@ -100,7 +100,7 @@ resource "aws_security_group" "websg" {
 }
 
 # creates a network interface and attach to public ec2 instance
-resource "aws_network_interface" "my_eni" {
+/* resource "aws_network_interface" "my_eni" {
   subnet_id       = aws_subnet.subnet1.id
   security_groups = [aws_security_group.websg.id]
 
@@ -108,7 +108,7 @@ resource "aws_network_interface" "my_eni" {
     instance     = aws_instance.public_instance.id
     device_index = 1
   }
-}
+} */
 
 # Create an EC2 instance in public subnet 
 resource "aws_instance" "public_instance" {
@@ -136,8 +136,8 @@ resource "aws_instance" "private_instance" {
   subnet_id     = aws_subnet.subnet2.id
     user_data = <<-EOF
     #!/bin/bash
-    yum update -y
-    yum install -y httpd
+    apt-get update -y
+    apt-get install -y httpd
     systemctl start httpd
     echo "Hello from Terraform!" > /var/www/html/index.html
   EOF
