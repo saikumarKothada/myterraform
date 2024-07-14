@@ -118,8 +118,8 @@ resource "aws_instance" "public_instance" {
   vpc_security_group_ids = [aws_security_group.websg.id]
   user_data = <<-EOF
     #!/bin/bash
-    yum update -y
-    yum install -y httpd
+    apt-get update -y
+    apt-get install -y httpd
     systemctl start httpd
     echo "Hello from Terraform!" > /var/www/html/index.html
 EOF
