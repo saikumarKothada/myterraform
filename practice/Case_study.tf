@@ -85,9 +85,9 @@ resource "aws_security_group" "websg" {
   vpc_id      = aws_vpc.my_vpc.id
 
   ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]  # Allow traffic from all sources
   }
   # Egress rule allowing all outbound traffic
@@ -118,9 +118,9 @@ resource "aws_instance" "public_instance" {
   vpc_security_group_ids = [aws_security_group.websg.id]
   user_data = <<-EOF
     #!/bin/bash
-    apt-get update -y
-    apt-get install -y httpd
-    systemctl start httpd
+    sudo apt-get update -y
+    sudo apt-get install -y apache2
+    sudo systemctl start apache2
     echo "Hello from Terraform!" > /var/www/html/index.html
 EOF
 
@@ -136,9 +136,9 @@ resource "aws_instance" "private_instance" {
   subnet_id     = aws_subnet.subnet2.id
     user_data = <<-EOF
     #!/bin/bash
-    apt-get update -y
-    apt-get install -y httpd
-    systemctl start httpd
+    sudo apt-get update -y
+    sudo apt-get install -y apache2
+    sudo systemctl start apache2
     echo "Hello from Terraform!" > /var/www/html/index.html
   EOF
 
