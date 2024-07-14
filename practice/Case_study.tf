@@ -121,7 +121,7 @@ resource "aws_instance" "public_instance" {
     sudo apt-get update -y
     sudo apt-get install -y apache2
     sudo systemctl start apache2
-    echo "Hello from Terraform!" > /var/www/html/index.html
+    sudo echo "Hello from Terraform!" > /var/www/html/index.html
 EOF
 
   tags = {
@@ -139,7 +139,7 @@ resource "aws_instance" "private_instance" {
     sudo apt-get update -y
     sudo apt-get install -y apache2
     sudo systemctl start apache2
-    echo "Hello from Terraform!" > /var/www/html/index.html
+    sudo echo "Hello from Terraform!" > /var/www/html/index.html
   EOF
 
   tags = {
