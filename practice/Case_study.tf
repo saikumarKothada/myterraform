@@ -117,11 +117,11 @@ resource "aws_instance" "public_instance" {
   subnet_id     = aws_subnet.subnet1.id
   vpc_security_group_ids = [aws_security_group.websg.id]
   user_data = <<-EOF
-    #!/bin/bash
-    sudo apt-get update -y
+    sudo apt-get update
     sudo apt-get install -y apache2
     sudo systemctl start apache2
-    sudo echo "Hello from Terraform!" > /var/www/html/index.html
+    sudo systemctl enable apache2
+    echo "Hello from my custom index.html!" | sudo tee /var/www/html/index.html
 EOF
 
   tags = {
